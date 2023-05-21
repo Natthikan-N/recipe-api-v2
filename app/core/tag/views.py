@@ -7,7 +7,7 @@ from rest_framework import viewsets , mixins
 from core.models import Tag
 from core.tag.serializers import TagSerializer
 
-class TagViewset(mixins.ListModelMixin , viewsets.GenericViewSet):
+class TagViewset(mixins.ListModelMixin , mixins.UpdateModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
     serializer_class = TagSerializer
     queryset = Tag.objects.all()
     authentication_classes = [TokenAuthentication]
@@ -17,4 +17,3 @@ class TagViewset(mixins.ListModelMixin , viewsets.GenericViewSet):
         return self.queryset.filter(user = self.request.user).order_by("-name")
     
     
-
